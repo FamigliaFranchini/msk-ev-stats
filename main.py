@@ -2,6 +2,11 @@ from flask import Flask, jsonify, request
 from pymongo import MongoClient
 import os
 import pkgutil
+import importlib.util
+
+# --- PATCH per Python 3.14: pkgutil.get_loader non esiste più ---
+if not hasattr(pkgutil, "get_loader"):
+    pkgutil.get_loader = importlib.util.find_spec
 
 app = Flask(__name__)
 
